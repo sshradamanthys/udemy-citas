@@ -3,22 +3,23 @@ import Formulario from "./components/Formulario";
 import Cita from "./components/Cita";
 
 function App() {
+  // se evalua el local storage
+  let citasIniciales = JSON.parse(localStorage.getItem("citas"));
+  if (!citasIniciales) {
+    citasIniciales = [];
+  }
+
   // Arreglo de citas
-  const [citas, setCitas] = useState([]);
+  const [citas, setCitas] = useState(citasIniciales);
 
   // Se ejecuta cuando el componente esta listo o se actualiza
   useEffect(() => {
-    // se evalua el local storage
-    let citasIniciales = JSON.parse(localStorage.getItem("citas"));
-    if (!citasIniciales) {
-      citasIniciales = [];
-    }
     if (citasIniciales) {
       localStorage.setItem("citas", JSON.stringify(citas));
     } else {
       localStorage.setItem("citas", JSON.stringify([]));
     }
-  }, [citas]);
+  }, [citas, citasIniciales]);
 
   const crearCita = (cita) => setCitas([...citas, cita]);
 
