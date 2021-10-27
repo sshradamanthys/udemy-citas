@@ -9,7 +9,10 @@ const Formulario = () => {
     sintomas: "",
   };
 
+  // state para datos del formulario
   const [cita, setCita] = useState(initialState);
+  // state para la validacion
+  const [error, setError] = useState(false);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -19,13 +22,42 @@ const Formulario = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validar
+    if (
+      mascota.trim() === "" ||
+      propietario.trim() === "" ||
+      fecha.trim() === "" ||
+      hora.trim() === "" ||
+      sintomas.trim() === ""
+    ) {
+      setError(true);
+      return;
+    }
+
+    // Eliminar un mensaje previo
+    setError(false);
+
+    // Asignar un ID
+    // Crear la cita
+    // Reiniciar el form
+    setCita(initialState);
+
+    // msg to client
+    alert("appointment added");
+  };
+
   // extraer los valores
   const { mascota, propietario, fecha, hora, sintomas } = cita;
 
   return (
     <>
       <h2>Crear Cita</h2>
-      <form>
+      {error ? (
+        <p className="alerta-error">Todos los campos son obligatorios</p>
+      ) : null}
+      <form onSubmit={handleSubmit}>
         <label>Nombre Mascota</label>
         <input
           type="text"
