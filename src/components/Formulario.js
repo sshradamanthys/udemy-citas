@@ -50,7 +50,7 @@ const Formulario = ({ crearCita }) => {
     setCita(initialState);
 
     // msg to client
-    alert("appointment added");
+    alert("Cita agregada");
   };
 
   // extraer los valores
